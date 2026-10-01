@@ -13,6 +13,7 @@ html[data-theme=dark] .brand-mark,html[data-theme=dark] .primary-button,html[dat
 html[data-theme=dark] .primary-button:hover{background:#75d6c4}
 html[data-theme=dark] .progress-track{background:#293630}
 html[data-theme=dark] .choice,html[data-theme=dark] .self-check-buttons button,html[data-theme=dark] .secondary-button,html[data-theme=dark] .topic-tabs button{background:#1b2621}
+html[data-theme=dark] .topic-tabs button[aria-selected=true]{background:#58c6b2;border-color:#58c6b2;color:#08231e}
 html[data-theme=dark] .choice:hover{border-color:#579b8d;background:#22322b}
 html[data-theme=dark] .choice.selected{background:#1d3a32;box-shadow:0 0 0 2px rgba(88,198,178,.16)}
 html[data-theme=dark] .choice.correct{border-color:#5eac7d;background:#1c3829}

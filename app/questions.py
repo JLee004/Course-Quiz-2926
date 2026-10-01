@@ -202,6 +202,7 @@ QUESTIONS = [
 
 from .curriculum import ADDITIONAL_QUESTIONS, CATEGORIES, ORIGINAL_CATEGORIES
 from .code_guides import CODE_GUIDES
+from .choice_refinements import CHOICE_REFINEMENTS
 
 # Preserve every original ID, prompt, answer, and position for saved progress.
 LEGACY_IDS = [question["id"] for question in QUESTIONS]
@@ -214,6 +215,9 @@ BY_ID = {question["id"]: question for question in QUESTIONS}
 if len(BY_ID) != len(QUESTIONS):
     raise ValueError("Question IDs must be unique")
 for question in QUESTIONS:
+    refinement = CHOICE_REFINEMENTS.get(question["id"])
+    if refinement:
+        question.update(refinement)
     if question["kind"] == "code":
         question["guide"] = CODE_GUIDES[question["id"]]
         # Reveal the same beginner-friendly reasoning in stages before showing the solution.

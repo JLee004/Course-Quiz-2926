@@ -44,6 +44,22 @@ The question order is stable. Each topic and Mixed practice have separate saved 
 
 Add it to `app/curriculum.py` with a unique ID, a topic, a clear prompt, hints, and a beginner-friendly explanation. Multiple-choice questions need plausible options and one correct index. Coding questions need a reference answer plus syntax, service-use, and common-mistake notes. Keep learner code out of the FastAPI process.
 
+### Question quality standards
+
+Write for a beginner who has completed the earlier lessons, but do not assume unstated product or data context. Each question should teach one main idea and describe a realistic task a product or service team might face. For AI service scenarios, name the user or operator, the relevant inputs or data, and the outcome or constraint that matters.
+
+Before adding a question, check that:
+
+- The prompt gives enough context to understand the situation without guessing hidden schema, policy, or terminology.
+- The task asks for one clear decision or output and includes the necessary assumptions, examples, and edge behavior.
+- Multiple-choice options are all plausible actions a beginner might consider; avoid joke answers, unrelated concepts, and obviously unsafe extremes. Keep one best answer under the stated context.
+- The explanation says why the best answer fits the scenario and why the nearest tempting alternative falls short.
+- Coding questions include the input/output contract, relevant fixture or library assumptions, and a traceable example. Their staged hints move from problem decomposition to an implementation step.
+- Team and AI-service questions reward useful practice: clarify acceptance criteria, define API/data contracts, review evidence, protect data and permissions, test failure cases, and monitor quality, cost, latency, and freshness where relevant.
+- A short transfer prompt lets the learner apply the idea after seeing the explanation.
+
+Use a simple 0–2 review score for context, answerability, reasoning value, explanation, and transfer practice (0 missing, 1 partial, 2 clear). Aim for at least 8/10 and require no zero for context or answerability. Keep difficulty gentle by changing one requirement at a time and explaining unfamiliar terms in the prompt or feedback.
+
 ## Run it
 
 From `/Users/jd/course-quiz-2026`:
