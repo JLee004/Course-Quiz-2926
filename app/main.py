@@ -66,5 +66,6 @@ def check_answer(request: AnswerRequest):
         "syntax": question["syntax"],
         "service": question["service"],
         "pitfall": question["pitfall"],
+        "guide": question["guide"],
         "source": question.get("source"),
     }

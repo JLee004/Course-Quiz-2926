@@ -1,9 +1,26 @@
 const STORAGE_KEY = "service-lab-progress-v2";
 const LEGACY_KEY = "service-lab-progress-v1";
+const THEME_KEY = "service-lab-theme";
 const $ = id => document.getElementById(id);
 let questions = [], categories = [], store, state;
 let storageAvailable = true;
 const pending = new Set();
+function applyTheme(theme, persist = false) {
+  const isDark = theme === "dark";
+  document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  const toggle = $("theme-toggle");
+  toggle.setAttribute("aria-pressed", String(isDark));
+  toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  toggle.querySelector(".theme-icon").textContent = isDark ? "☀" : "☾";
+  toggle.querySelector(".theme-label").textContent = isDark ? "Light mode" : "Dark mode";
+  if (persist) {
+    try { localStorage.setItem(THEME_KEY, isDark ? "dark" : "light"); } catch (_) {}
+  }
+}
+applyTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+$("theme-toggle").addEventListener("click", () => {
+  applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true);
+});
 function baseOrderFor(track) {
   return questions.filter(q => track === "mixed" || q.category === track).map(q => q.id);
 }
@@ -275,7 +292,18 @@ function renderFeedback(question, result) {
     text("syntax-text", feedback.syntax);
     text("service-text", feedback.service);
     text("pitfall-text", feedback.pitfall);
-
+    const guide = feedback.guide;
+    const steps = $("guide-steps");
+    steps.replaceChildren();
+    (guide?.steps || []).forEach(step => {
+      const item = document.createElement("li");
+      item.textContent = step;
+      steps.append(item);
+    });
+    text("guide-trace", guide?.trace);
+    text("guide-practice", guide?.practice);
+    text("guide-practice-answer", guide?.practice_answer);
+    show("coding-guide", Boolean(guide));
   }
   show("next-button", true);
   text("next-button", currentIndex() === currentOrder().length - 1 ? "Finish this topic →" : "Continue when ready →");

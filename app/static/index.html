@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Service Lab · Learn software and AI services</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23156c62'/%3E%3Ctext x='32' y='42' font-size='27' text-anchor='middle' fill='white' font-family='monospace'%3E%7B%7D%3C/text%3E%3C/svg%3E">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("service-lab-theme");
+        const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+      } catch (_) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="/static/styles.css">
   <script src="/static/app.js" defer></script>
 </head>
@@ -12,7 +23,13 @@
   <div class="shell">
     <header class="site-header">
       <a class="brand" href="/" aria-label="Service Lab home"><span class="brand-mark">{ }</span><span>Service Lab</span></a>
-      <span class="header-note">A space to learn and practice</span>
+      <div class="header-actions">
+        <span class="header-note">A space to learn and practice</span>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true">☾</span>
+          <span class="theme-label">Dark mode</span>
+        </button>
+      </div>
     </header>
 
     <main class="main-content">
@@ -69,6 +86,20 @@
               <div><h4>Where it fits</h4><p id="service-text"></p></div>
               <div><h4>Why a common mistake fails</h4><p id="pitfall-text"></p></div>
             </div>
+            <section id="coding-guide" class="coding-guide" aria-labelledby="guide-title">
+              <h4 id="guide-title">How to think it through</h4>
+              <ol id="guide-steps"></ol>
+              <h4>Walk through an example</h4>
+              <p id="guide-trace"></p>
+              <div class="transfer-practice">
+                <h4>Try a small variation</h4>
+                <p id="guide-practice"></p>
+                <details>
+                  <summary>Show one possible answer</summary>
+                  <p id="guide-practice-answer"></p>
+                </details>
+              </div>
+            </section>
           </div>
           <div class="practice-actions"><button id="retry-button" class="secondary-button" type="button">Try this question again</button></div>
           <div id="self-check" class="self-check"><p>What would help you learn next?</p><div class="self-check-buttons"><button id="mark-correct" type="button">I understand this idea</button><button id="mark-review" type="button">Keep this for practice</button></div><p id="reflection-note" class="muted"></p></div>
